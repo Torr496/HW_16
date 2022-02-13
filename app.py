@@ -137,10 +137,10 @@ def all_users():
         res = []
         for u in User.query.all():
             res.append(u.instance_to_dict())
-        return json.dumps(res), 200, {'Content-Type': 'application/json; charset= utf-8'}
+        return jsonify(res),  {'Content-Type': 'application/json; charset= utf-8'}
 
     elif request.method == "POST":
-        user_data = json.loads(request.data)
+        user_data = request.json
         new_user = User(
             id=user_data["id"],
             first_name=user_data["first_name"],
@@ -158,14 +158,14 @@ def all_users():
 @app.route('/users/<int:uid>', methods=["GET", "PUT", "DELETE"])
 def user(uid: int):
     if request.method == "GET":
-        return jsonify(User.query.get(uid).instance_to_dict()), 200, {'Content-Type': 'application/json; charset= utf-8'}
+        return jsonify(User.query.get(uid).instance_to_dict()), {'Content-Type': 'application/json; charset= utf-8'}
     elif request.method == "DELETE":
         u = User.query.get(uid)
         db.session.delete(u)
         db.session.commit()
         return "", 204
     elif request.method == "PUT":
-        user_ = json.loads(request.data)
+        user_ = request.json
         u = User.query.get(uid)
         u.first_name=user_["first_name"],
         u.last_name=user_["last_name"],
@@ -184,10 +184,10 @@ def all_offers():
         res = []
         for o in Offer.query.all():
             res.append(o.instance_to_dict())
-        return json.dumps(res), 200, {'Content-Type': 'application/json; charset= utf-8'}
+        return jsonify(res), {'Content-Type': 'application/json; charset= utf-8'}
 
     elif request.method == "POST":
-        offer_data = json.loads(request.data)
+        offer_data = request.json
         new_offer = Offer(
             id=offer_data["id"],
             order_id=offer_data["order_id"],
@@ -202,14 +202,14 @@ def all_offers():
 @app.route('/offers/<int:uid>', methods=["GET", "PUT", "DELETE"])
 def offer(uid: int):
     if request.method == "GET":
-        return jsonify(Offer.query.get(uid).instance_to_dict()), 200, {'Content-Type': 'application/json; charset= utf-8'}
+        return jsonify(Offer.query.get(uid).instance_to_dict()), {'Content-Type': 'application/json; charset= utf-8'}
     elif request.method == "DELETE":
         o = Offer.query.get(uid)
         db.session.delete(o)
         db.session.commit()
         return "", 204
     elif request.method == "PUT":
-        offer_ = json.loads(request.data)
+        offer_ = request.json
         o = User.query.get(uid)
         o.order_id=offer_["order_id"],
         o.executor_id=offer_["executor_id"],
@@ -223,10 +223,10 @@ def all_orders():
         res = []
         for ord in Order.query.all():
             res.append(ord.istance_to_dict())
-        return json.dumps(res), 200, {'Content-Type': 'application/json; charset=utf-8'}
+        return jsonify(res), {'Content-Type': 'application/json; charset=utf-8'}
 
     elif request.method == "POST":
-        order_data = json.loads(request.data)
+        order_data = request.json
         new_order = Order(
             id=order_data["id"],
             name=order_data["name"],
@@ -246,14 +246,14 @@ def all_orders():
 @app.route('/orders/<int:uid>', methods=["GET", "PUT", "DELETE"])
 def orders(uid: int):
     if request.method == "GET":
-        return jsonify(Order.query.get(uid).istance_to_dict()), 200, {'Content-Type': 'application/json; charset= utf-8'}
+        return jsonify(Order.query.get(uid).istance_to_dict()), {'Content-Type': 'application/json; charset= utf-8'}
     elif request.method == "DELETE":
         ord = Order.query.get(uid)
         db.session.delete(ord)
         db.session.commit()
         return "", 204
     elif request.method == "PUT":
-        orders_ = json.loads(request.data)
+        orders_ = request.json
         o = User.query.get(uid)
         o.name=orders_["name"],
         o.description=orders_["description"],
