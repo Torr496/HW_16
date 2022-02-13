@@ -137,7 +137,7 @@ def all_users():
         res = []
         for u in User.query.all():
             res.append(u.instance_to_dict())
-        return jsonify(res),  {'Content-Type': 'application/json; charset= utf-8'}
+        return jsonify(res)
 
     elif request.method == "POST":
         user_data = request.json
@@ -158,7 +158,7 @@ def all_users():
 @app.route('/users/<int:uid>', methods=["GET", "PUT", "DELETE"])
 def user(uid: int):
     if request.method == "GET":
-        return jsonify(User.query.get(uid).instance_to_dict()), {'Content-Type': 'application/json; charset= utf-8'}
+        return jsonify(User.query.get(uid).instance_to_dict())
     elif request.method == "DELETE":
         u = User.query.get(uid)
         db.session.delete(u)
@@ -184,7 +184,7 @@ def all_offers():
         res = []
         for o in Offer.query.all():
             res.append(o.instance_to_dict())
-        return jsonify(res), {'Content-Type': 'application/json; charset= utf-8'}
+        return jsonify(res)
 
     elif request.method == "POST":
         offer_data = request.json
@@ -202,7 +202,7 @@ def all_offers():
 @app.route('/offers/<int:uid>', methods=["GET", "PUT", "DELETE"])
 def offer(uid: int):
     if request.method == "GET":
-        return jsonify(Offer.query.get(uid).instance_to_dict()), {'Content-Type': 'application/json; charset= utf-8'}
+        return jsonify(Offer.query.get(uid).instance_to_dict())
     elif request.method == "DELETE":
         o = Offer.query.get(uid)
         db.session.delete(o)
@@ -223,7 +223,7 @@ def all_orders():
         res = []
         for ord in Order.query.all():
             res.append(ord.istance_to_dict())
-        return jsonify(res), {'Content-Type': 'application/json; charset=utf-8'}
+        return jsonify(res)
 
     elif request.method == "POST":
         order_data = request.json
@@ -246,7 +246,7 @@ def all_orders():
 @app.route('/orders/<int:uid>', methods=["GET", "PUT", "DELETE"])
 def orders(uid: int):
     if request.method == "GET":
-        return jsonify(Order.query.get(uid).istance_to_dict()), {'Content-Type': 'application/json; charset= utf-8'}
+        return jsonify(Order.query.get(uid).istance_to_dict())
     elif request.method == "DELETE":
         ord = Order.query.get(uid)
         db.session.delete(ord)
